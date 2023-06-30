@@ -38,15 +38,13 @@ public class ContactsList {
         );
 
 
-        Path filePath = Paths.get("data", "contacts.txt");
+        Path contactsPath = Paths.get("data", "contacts.txt");
 
-        Files.write(filePath, contacts);
-
-        List<String> contactsListFromFile = Files.readAllLines(filePath);
+        Files.write(contactsPath, contacts);
 
 
-        for (int i = 0; i < contactsListFromFile.size(); i += 1) {
-            System.out.println((i + 1) + ": " + contactsListFromFile.get(i));
+        for (int i = 0; i < contacts.size(); i += 1) {
+            System.out.println((i + 1) + ": " + contacts.get(i));
         }
 
         Files.write(
@@ -56,9 +54,8 @@ public class ContactsList {
         );
 
 
+        List<String> lines = Files.readAllLines(contactsPath);
         List<String> newContactsList = new ArrayList<>();
-
-        List<String> lines = Files.readAllLines(filePath);
         for (String line : lines) {
             if (line.equals("Olivia Spencer - 305-559-1412")) {
                 newContactsList.add("Angela Bassett - 555-555-5555");
@@ -66,7 +63,7 @@ public class ContactsList {
             }
             newContactsList.add(line);
         }
-        Files.write(filePath, newContactsList);
+        Files.write(Paths.get("data", "contacts.txt"), newContactsList);
     }
 
 }
