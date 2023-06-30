@@ -3,11 +3,24 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ContactsList {
+private static Scanner sc = new Scanner(System.in);
+public static void AddContact() throws IOException {
+    System.out.println("Enter First and Last Name. ");
+    String nameInput = sc.nextLine();
+    System.out.println("Enter phone number.");
+    String numberInput = sc.nextLine();
+    String contactInfo = nameInput + " - " + numberInput;
+    Files.write(
+            Paths.get("data", "contacts.txt"),
+            Arrays.asList(contactInfo),
+            StandardOpenOption.APPEND
+    );
+}
+
+
     public static void main(String[] args) throws IOException {
 
         String directory = "data";
@@ -42,17 +55,12 @@ public class ContactsList {
 
         Files.write(contactsPath, contacts);
 
-
-        for (int i = 0; i < contacts.size(); i += 1) {
-            System.out.println((i + 1) + ": " + contacts.get(i));
-        }
-
-        Files.write(
-                Paths.get("data", "contacts.txt"),
-                Arrays.asList("test"),
-                StandardOpenOption.APPEND
-        );
-
+//        Files.write(
+//                Paths.get("data", "contacts.txt"),
+//                Arrays.asList("test"),
+//                StandardOpenOption.APPEND
+//        );
+           AddContact();
 
         List<String> lines = Files.readAllLines(contactsPath);
         List<String> newContactsList = new ArrayList<>();
@@ -64,6 +72,12 @@ public class ContactsList {
             newContactsList.add(line);
         }
         Files.write(Paths.get("data", "contacts.txt"), newContactsList);
+
+        for(int i = 0; i < newContactsList.size(); i += 1) {
+            System.out.println((i + 1) + ": " + newContactsList.get(i));
+        }
+
+
     }
 
 }
