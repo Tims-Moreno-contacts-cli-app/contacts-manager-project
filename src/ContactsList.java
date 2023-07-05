@@ -15,17 +15,6 @@ public static void showContactList(Path datafile) throws IOException {
         }
 }
 
-
-
-
-
-
-
-
-
-
-
-
 public static void AddContact() throws IOException {
     System.out.println("Enter First and Last Name. ");
     String nameInput = sc.nextLine();
@@ -39,16 +28,6 @@ public static void AddContact() throws IOException {
             StandardOpenOption.APPEND
     );
 }
-
-
-
-
-
-
-
-
-
-
 
 
 // THROWS IOException:
