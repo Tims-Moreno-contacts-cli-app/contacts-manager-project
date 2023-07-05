@@ -11,11 +11,18 @@ public class ContactsList {
 
 //USED TO DISPLAY THE LIST OF CONTACTS FROM OUR FILE. IT READS EVERY LINE FROM THE FILE AND PRINTS EACH LINE.
     public static void showContactList(Path datafile) throws IOException {
+        int nameWidth = 20;
+        int phoneWidth = 15;
         List<String> lines = Files.readAllLines(datafile);
-        System.out.println("Name\t| Phone Number");
-        System.out.println("--------------------------");
-        for (int i = 0; i < lines.size(); i += 1) {
-            System.out.println((i + 1) + ": " + lines.get(i));
+        System.out.println("------------------------------------");
+        System.out.printf("%-" + nameWidth + "s | %-" + phoneWidth + "s%n", "Contact Name", "Phone Number");
+        System.out.println("------------------------------------");
+        for (String contacts : lines) {
+            String[] parts = contacts.split("\\|");
+            String name = parts[0].trim();
+            String phoneNumber = parts[1].trim();
+
+            System.out.printf("%-" + nameWidth + "s | %-" + phoneWidth + "s%n", name, phoneNumber);
         }
     }
 
@@ -108,20 +115,21 @@ public class ContactsList {
             Files.createFile(dataFile);
         }
 
-
-//        List<String> contacts = Arrays.asList(
-//                "Jerrod Cooper | 754-244-7389",
-//                "Elizabeth Taylor | 816-544-6492",
-//                "Harry Potter | 302-190-7349",
-//                "Olivia Spencer | 305-559-1412",
-//                "Jerry Springer | 757-468-1112",
-//                "Idris Elba | 212-444-2323",
-//                "Beyonce Knowles | 281-503-7262",
-//                "Michael Jones | 281-330-8004",
-//                "Soulja Boi | 678-999-8212",
-//                "Little Wayne | 504-981-2617"
-//        );
-//        Files.write(dataFile, contacts);
+        if (Files.readAllLines(dataFile).size() == 0) {
+            List<String> contacts = Arrays.asList(
+                    "Jerrod Cooper | 754-244-7389",
+                    "Elizabeth Taylor | 816-544-6492",
+                    "Harry Potter | 302-190-7349",
+                    "Olivia Spencer | 305-559-1412",
+                    "Jerry Springer | 757-468-1112",
+                    "Idris Elba | 212-444-2323",
+                    "Beyonce Knowles | 281-503-7262",
+                    "Michael Jones | 281-330-8004",
+                    "Soulja Boi | 678-999-8212",
+                    "Little Wayne | 504-981-2617"
+            );
+            Files.write(dataFile, contacts);
+        }
         do {
             System.out.println("Choose from the following menu:");
             System.out.println(" Press 1: View Contacts \n Press 2: Add Contact \n Press 3: Search Contacts \n Press 4: Delete Contact \n Press 5: Exit");
